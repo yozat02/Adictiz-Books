@@ -23,5 +23,4 @@ export class AdPopupDetailsComponent implements OnInit {
     this.bookById = this.allBooks.find(x => x.id === book.id);
     return this.bookById;
   }
-
 }
