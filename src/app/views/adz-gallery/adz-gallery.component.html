@@ -1,0 +1,69 @@
+<div class="bar">
+  <div class="header-language" style="margin-top: 7px">
+    <span class="bgBar">
+    {{ 'title' | translate:title }}</span>
+    <div> Translate <button class="btn btn-primary btn-sm" (click)="switchLanguage('en')">English</button>
+    <button class="btn btn-primary btn-sm" (click)="switchLanguage('fr')">French</button></div>
+  </div>
+</div>
+<adz-search-books [customBookFilter]="customBookFilter"></adz-search-books>
+
+<div  [@fadeInOut] class="form-group selectFilters">
+  <strong> {{ 'Filters' | translate:Filters }}</strong>
+  <select class="form-control form-control-sm" type="text" [(ngModel)]="customBookFilter.categories">
+    <option value="">{{ 'Category' | translate:Category }}</option>
+    <option *ngFor="let category of uniqueCategoriesItems " value="{{category}}">{{category}}</option>
+  </select>
+  <select class="form-control form-control-sm" type="text" [(ngModel)]="customBookFilter.authors">
+    <option value="">{{ 'Author' | translate:Author }}</option>
+    <option *ngFor="let author of uniqueauthorItems" value="{{author}}">{{author}}</option>
+  </select>
+
+  <select class="form-control form-control-sm" type="text" [(ngModel)]="customBookFilter.language">
+    <option value="">{{ 'Language' | translate:Language }}</option>
+    <option value="fr">{{ 'French' | translate:French }}</option>
+    <option value="en">{{ 'English' | translate:English }}</option>
+  </select>
+  <select class="form-control form-control-sm" type="text" (change)="pagination($event.target.value)">
+    <option value="">{{ 'Page' }}</option>
+    <option *ngFor="let i of numbers"  value="{{i}}">{{i+1}}</option>
+  </select>
+  <button type="button" class="btn btn-outline-dark retour-button"  [routerLink]="['/']">Retour</button>
+</div>
+<div class="show-book">
+  <h5>{{ 'show' | translate:show}} {{1+k*12}}-{{allBooks.length+k*12}}</h5>
+</div>
+
+<div class="col-md-12">
+  <div class="card-deck">
+    <div class="booksWrapper">
+      <div class="card h-100" *ngFor="let book of (allBooks | booksPipe:customBookFilter.title | booksPipe:customBookFilter.categories 
+      | booksPipe:customBookFilter.authors | languagePipe:customBookFilter.language | booksPipe:customBookFilter.publisher)">
+        <img *ngIf="book.volumeInfo.imageLinks!==undefined" class="card-img-top" src="{{book.volumeInfo.imageLinks.thumbnail}}" (click)="openModalDetails(book)"
+         alt="thumbnail">
+        <img *ngIf="book.volumeInfo.imageLinks===undefined" class="card-img-top" src="" (click)="openModalDetails(book)" height="220px" alt="no-thumbnail">
+
+        <div class="card-body">
+          <h5 class="card-title" (click)="openModalDetails(book)">{{book.volumeInfo.title}}</h5>
+          <span style="color: #0079ac" translate>{{ 'Author' | translate:Author }}:</span><span *ngIf="book.volumeInfo.authors==undefined">{{
+            'Unknown' | translate:Unknown }}</span><span *ngIf="book.volumeInfo.authors!==undefined">{{book.volumeInfo.authors}}</span><br>
+          <span style="color: #0079ac" translate>{{ 'Publisher' | translate:Publisher }}: </span><span>{{book.volumeInfo.publisher}}</span>
+          <hr>
+          <p class="card-text" *ngIf="book.volumeInfo.description==undefined">{{ 'NoDescription' | translate:NoDescription
+            }}</p>
+          <p class="card-text" *ngIf="book.volumeInfo.description!=undefined">{{(book.volumeInfo.description.length>110)?(book.volumeInfo.description
+            | slice:0:110)+'...':(book.volumeInfo.description)}}</p>
+          <p *ngIf="book.volumeInfo.language === 'en'">{{ 'Language' | translate:Language }}: <span class="badge badge-primary">{{
+              'English' | translate:English }}</span></p>
+          <p *ngIf="book.volumeInfo.language === 'fr'">{{ 'Language' | translate:Language }}: <span class="badge badge-primary">{{
+              'French' | translate:French }}</span></p>
+          <p *ngIf="book.volumeInfo.language === 'ar'">{{ 'Language' | translate:Language }}: <span class="badge badge-primary">{{
+              'Arabic' | translate:Arabic }}</span></p>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-md btn-outline-primary" (click)="openModalDetails(book)">Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

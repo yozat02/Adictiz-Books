@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #3090C7;
+    font-family: 'Roboto', sans-serif;
+  }
+  html, body {
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+  }
+  .adictiz{
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+  }
+  .adictiz #adictiz_logo {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    clear: both;
+    padding-top: 300px;
+    padding-bottom: 20px;
+  }
+  
+  .form {
+    text-align: center;
+  }
+  #keyword{
+    width: 400px;
+  }
+  #form-search { 
+    width: 100%;
+    line-height: 32px;
+    padding: 20px 10px;
+  }
+  
+  .form #form-search {
+    padding: 0 8px;
+  }
+  
+  .buttons {
+    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 300px;
+  }
+  
+  
+  
+  
